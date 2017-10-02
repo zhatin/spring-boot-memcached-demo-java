@@ -1,0 +1,8 @@
+version: '3'
+services:
+  demo-app:
+    image: spring-boot-memcached-demo-java
+    ports:
+      - 8080:8080
+  memcached:
+    image: memcached:alpine
