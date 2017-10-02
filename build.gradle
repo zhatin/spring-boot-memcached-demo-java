@@ -13,10 +13,11 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
 
-group = 'io.sixhours.memecached'
+group = 'io.sixhours'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = 1.8
+sourceCompatibility = 1.9
 
 repositories {
 	mavenCentral()
@@ -25,5 +26,25 @@ repositories {
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('io.sixhours:memcached-spring-boot-starter:1.0.1')
+
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
+
+task buildDocker(type: Exec) {
+	doFirst {
+		copy {
+			from "src/main/docker/"
+			into "build/docker/"
+			include "*"
+		}
+		copy {
+			from "build/libs"
+			into "build/docker/"
+			include "*.jar*"
+		}
+	}
+	commandLine 'docker', 'image', 'build', '-f', 'build/docker/Dockerfile', '-t', project.name, 'build/docker/'
+}
+
+buildDocker.dependsOn build
