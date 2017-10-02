@@ -1,11 +1,15 @@
 package io.sixhours.memecached.demo;
 
+import java.io.Serializable;
+
 /**
  * Entity containing information about a book.
  *
  * @author Sasa Bolic
  */
-public class Book {
+public class Book implements Serializable {
+    private static final long serialVersionUID  = 1L;
+
     private Integer id;
     private String title;
     private Integer year;
