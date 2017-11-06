@@ -23,4 +23,11 @@ public interface BookRepository {
      * @return the list
      */
     List<Book> findByTitle(String title);
+
+    /**
+     * Evict and re-cache list of books.
+     *
+     * @return the list
+     */
+    List<Book> evictAndRecache();
 }

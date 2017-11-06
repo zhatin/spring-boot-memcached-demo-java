@@ -1,5 +1,6 @@
 package io.sixhours.memecached.demo;
 
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
@@ -29,6 +30,13 @@ public class SimpleBookRepository implements BookRepository {
     public List<Book> findByTitle(String title) {
         simulateSlowService();
         return books.stream().filter(b -> b.getTitle().equals(title)).collect(Collectors.toList());
+    }
+
+    @Override
+    @CacheEvict(value = "books", allEntries = true, beforeInvocation = true)
+    @Cacheable("books")
+    public List<Book> evictAndRecache() {
+        return this.books;
     }
 
     private void simulateSlowService() {

@@ -41,5 +41,13 @@ public class BookController {
         return repository.findByTitle(title);
     }
 
+    /**
+     * Evict and re-cache book list.
+     */
+    @GetMapping("/books/evictAndRecache")
+    public List<Book> evictAndRecache() {
+        return repository.evictAndRecache();
+    }
+
 
 }
