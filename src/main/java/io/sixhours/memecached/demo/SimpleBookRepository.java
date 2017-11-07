@@ -4,8 +4,10 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Implementation of {@link BookRepository} containing mocked data.
@@ -21,6 +23,7 @@ public class SimpleBookRepository implements BookRepository {
             new Book(4, "Kotlin", 2017));
 
     @Override
+    @Cacheable("books")
     public List<Book> findAll() {
         return this.books;
     }
@@ -34,9 +37,14 @@ public class SimpleBookRepository implements BookRepository {
 
     @Override
     @CacheEvict(value = "books", allEntries = true, beforeInvocation = true)
-    @Cacheable("books")
-    public List<Book> evictAndRecache() {
-        return this.books;
+    @Cacheable(value = "books", key = "T(org.springframework.cache.interceptor.SimpleKey).EMPTY")
+    public List<Book> deleteAndRecache(String title) {
+        List<Book> result = new ArrayList<>(this.books);
+        result.removeIf(b -> b.getTitle().equals(title));
+
+        result.forEach(System.out::println);
+
+        return result;
     }
 
     private void simulateSlowService() {
