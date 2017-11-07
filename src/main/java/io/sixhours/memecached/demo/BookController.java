@@ -1,5 +1,6 @@
 package io.sixhours.memecached.demo;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,11 +43,11 @@ public class BookController {
     }
 
     /**
-     * Evict and re-cache book list.
+     * Delete book with given title and re-cache book list.
      */
-    @GetMapping("/books/evictAndRecache")
-    public List<Book> evictAndRecache() {
-        return repository.evictAndRecache();
+    @DeleteMapping("/books/{title}")
+    public void deleteAndRecache(@PathVariable String title) {
+        repository.deleteAndRecache(title);
     }
 
 

@@ -25,9 +25,9 @@ public interface BookRepository {
     List<Book> findByTitle(String title);
 
     /**
-     * Evict and re-cache list of books.
+     * Delete book with given title and re-cache list of books.
      *
      * @return the list
      */
-    List<Book> evictAndRecache();
+    List<Book> deleteAndRecache(String title);
 }
