@@ -25,9 +25,11 @@ To start a memcached server and the demo application, run:
 
 You should now be able to access REST endpoints e.g.
 
-http://localhost:8080/books (not cached)
+1. GET http://localhost:8080/books (second request is cached response)
 
-http://localhost:8080/books/Kotlin (cached)
+2. GET http://localhost:8080/books/Kotlin (second request is cached response)
+
+3. DELETE http://localhost:8080/books/Kotlin (re-cached, next invocation of step 1. request will return list without book with title *Kotlin*)
 
 To stop and remove the containers, run:
 
