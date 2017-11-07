@@ -25,6 +25,7 @@ public class SimpleBookRepository implements BookRepository {
     @Override
     @Cacheable("books")
     public List<Book> findAll() {
+        simulateSlowService();
         return this.books;
     }
 
@@ -41,8 +42,6 @@ public class SimpleBookRepository implements BookRepository {
     public List<Book> deleteAndRecache(String title) {
         List<Book> result = new ArrayList<>(this.books);
         result.removeIf(b -> b.getTitle().equals(title));
-
-        result.forEach(System.out::println);
 
         return result;
     }
