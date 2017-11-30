@@ -1,4 +1,4 @@
-FROM openjdk:9-jdk-slim
+FROM openjdk:9-jdk
 
 VOLUME /tmp
 ADD *.jar app.jar
