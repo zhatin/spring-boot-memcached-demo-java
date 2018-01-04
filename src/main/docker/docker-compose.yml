@@ -6,3 +6,5 @@ services:
       - 8080:8080
   memcached:
     image: memcached:alpine
+    ports:
+      - 11211:11211
