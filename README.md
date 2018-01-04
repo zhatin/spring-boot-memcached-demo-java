@@ -1,6 +1,6 @@
 # Spring Boot Memcached Demo in Java
 
-This is a demo project showing the usage of [Memcached Spring Boot](https://github.com/sixhours-team/memcached-spring-boot) cache library in a Spring Boot Java application.
+This is an example project showing the usage of [Memcached Spring Boot](https://github.com/sixhours-team/memcached-spring-boot) cache library in a Spring Boot Java application.
 You will have to have Docker and Java 9 installed in order to run this demo.
 
 There is an equivalent demo project written in Kotlin. To see version of this demo in Kotlin go to [Spring Boot Memcached Demo in Kotlin](https://github.com/sixhours-team/spring-boot-memcached-demo-kotlin).
