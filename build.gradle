@@ -1,39 +1,42 @@
 plugins {
-	id 'org.springframework.boot' version '2.2.0.RELEASE'
-	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
-	id 'java'
+    id 'org.springframework.boot'
+    id 'io.spring.dependency-management'
+    id 'java'
 }
 
 group = 'io.sixhours'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = JavaVersion.VERSION_11
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+}
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'io.sixhours:memcached-spring-boot-starter:1.3.2'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'io.sixhours:memcached-spring-boot-starter:1.3.2'
 
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 task buildDocker(type: Exec) {
-	doFirst {
-		copy {
-			from "src/main/docker/"
-			into "build/docker/"
-			include "*"
-		}
-		copy {
-			from "build/libs"
-			into "build/docker/"
-			include "*.jar*"
-		}
-	}
-	commandLine 'docker', 'image', 'build', '-f', 'build/docker/Dockerfile', '-t', project.name, 'build/docker/'
+    doFirst {
+        copy {
+            from "src/main/docker/"
+            into "build/docker/"
+            include "*"
+        }
+        copy {
+            from "build/libs"
+            into "build/docker/"
+            include "*.jar*"
+        }
+    }
+    commandLine 'docker', 'image', 'build', '-f', 'build/docker/Dockerfile', '-t', project.name, 'build/docker/'
 }
 
 buildDocker.dependsOn build
