@@ -11,17 +11,16 @@ To run the application tests execute this command:
 
     ./gradlew test
 
-
 ## Running with Docker
 
-Build a Docker image for the demo application by running:
+Build a demo application by running:
 
-    ./gradlew clean buildDocker
+    ./gradlew clean build
 
-This will create the `sb-memcached-demo` Docker image in your machine's local Docker image registry.
-To start a memcached server and the demo application, run:
+This will create the executable application JAR `spring-boot-memcached-demo-java-0.0.1-SNAPSHOT.jar`.
+To start a Memcached server and the demo application, run:
 
-    docker-compose -f src/main/docker/docker-compose.yml up -d
+    docker-compose up -d
 
 You should now be able to access REST endpoints e.g.
 
@@ -33,4 +32,4 @@ You should now be able to access REST endpoints e.g.
 
 To stop and remove the containers, run:
 
-    docker-compose -f src/main/docker/docker-compose.yml down
+    docker-compose down
