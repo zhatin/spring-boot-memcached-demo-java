@@ -13,7 +13,7 @@ java {
 
 repositories {
     mavenCentral()
-    maven { url 'https://oss.jfrog.org/artifactory/oss-snapshot-local' }
+    maven { url 'https://oss.jfrog.org/artifactory/libs-snapshot' }
 }
 
 
