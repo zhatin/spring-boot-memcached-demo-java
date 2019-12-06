@@ -1,5 +1,7 @@
 FROM azul/zulu-openjdk-alpine:11 as packager
 
+ENV PATH $JAVA_HOME/bin:$PATH
+
 RUN { \
         java --version ; \
         echo "jlink version:" && \
@@ -35,7 +37,6 @@ ENV PATH="$PATH:$JAVA_MINIMAL/bin"
 
 COPY --from=packager "$JAVA_MINIMAL" "$JAVA_MINIMAL"
 VOLUME /tmp
-ADD *.jar app.jar
-ENV JAVA_OPTS=""
+COPY build/libs/*.jar app.jar
 
-ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app.jar" ]
+ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTS} -jar /app.jar"]
